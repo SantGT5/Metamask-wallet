@@ -1,12 +1,12 @@
 import React from "react";
-import {ethers} from "ethers"
+import { ethers } from "ethers";
 
 declare global {
-    interface Window {
-      ethereum?: any;
-      web3?:any
-    }
+  interface Window {
+    ethereum?: any;
+    web3?: any;
   }
+}
 
 export const WalletCard = () => {
   const [errorMessage, setErrorMessage] = React.useState<any>(null);
@@ -21,15 +21,29 @@ export const WalletCard = () => {
         .request({ method: "eth_requestAccounts" })
         .then((result: any) => {
           accountChangeHandler(result[0]);
-        });
+        })
+        .catch((error: any) => {
+          if (error.code === -32002) {
+            // EIP-1193 userRejectedRequest error
+            console.log("Please connect to MetaMask.");
+          } else {
+            console.log(error);
+          }
+        })
+        
     } else {
       setErrorMessage("Install MetaMask");
     }
   };
 
   const accountChangeHandler = (newAccount: any) => {
-    setDefaultAccount(newAccount);
-    getUserBalance(newAccount.toString());
+    if (newAccount) {
+      setDefaultAccount(newAccount);
+
+      getUserBalance(newAccount.toString());
+    } else {
+      console.log("User not logged");
+    }
   };
 
   const getUserBalance = (address: any) => {
@@ -41,10 +55,11 @@ export const WalletCard = () => {
   };
 
   const chainChangedHandler = () => {
-      window.location.reload()
-  }
-  window.ethereum.on("accountsChanged", accountChangeHandler)
-  window.ethereum.on("chainChanged", chainChangedHandler)
+    window.location.reload();
+  };
+
+  window.ethereum.on("accountsChanged", accountChangeHandler);
+  window.ethereum.on("chainChanged", chainChangedHandler);
 
   return (
     <div className="walletCard">
