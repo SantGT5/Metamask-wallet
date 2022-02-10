@@ -29,8 +29,7 @@ export const WalletCard = () => {
           } else {
             console.log(error);
           }
-        })
-        
+        });
     } else {
       setErrorMessage("Install MetaMask");
     }
