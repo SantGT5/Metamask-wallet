@@ -10,6 +10,9 @@ export const WalletsConnection = () => {
       <br />
       <br />
       <Link to="/wallet-transaction">Wallet Transaction</Link>
+      <br />
+      <br />
+      <Link to="/wallet-smart-contract">Wallet SmartContract</Link>
     </div>
   );
 };

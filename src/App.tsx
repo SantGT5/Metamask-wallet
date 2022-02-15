@@ -6,6 +6,7 @@ import { WalletsConnection } from "./components/wallets-connection";
 import { WalletCard } from "./components/wallet-metamask";
 import { WalletNFT } from "./components/wallet-nft";
 import { WalletTransaction } from "./components/wallet-transaction";
+import { WalletSmartContract } from "./components/MetaMask SmartContract/wallet-contract"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/metamask" element={<WalletCard />} />
       <Route path="/wallet-nft" element={<WalletNFT />} />
       <Route path="/wallet-transaction" element={<WalletTransaction />} />
+      <Route path="/wallet-smart-contract" element={<WalletSmartContract />} />
     </Routes>
   );
 }
